@@ -1,0 +1,347 @@
+
+** Conflict (shift/reduce) in state 222.
+** Token involved: FUNCTION
+** This state is reached from prog after reading:
+
+funcao 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+(?)
+
+** In state 222, looking ahead at FUNCTION, shifting is permitted
+** because of the following sub-derivation:
+
+list(funcao) list(statement) list(funcao) EOF 
+funcao list(funcao) 
+       funcao list(funcao) 
+       . FUNCTION ID APAR parametros FPAR ACHAVE list(statement) FCHAVE 
+
+** In state 222, looking ahead at FUNCTION, reducing production
+** list(funcao) -> 
+** is permitted because of the following sub-derivation:
+
+list(funcao) list(statement) list(funcao) EOF // lookahead token appears because list(statement) can vanish and list(funcao) can begin with FUNCTION
+funcao list(funcao) // lookahead token is inherited
+       . 
+
+** Conflict (shift/reduce) in state 185.
+** Token involved: ELSE
+** This state is reached from prog after reading:
+
+list(funcao) IF APAR expressao FPAR IF APAR expressao FPAR statement 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             statement list(statement) 
+             stm_if 
+             (?)
+
+** In state 185, looking ahead at ELSE, reducing production
+** option(stm_else) -> 
+** is permitted because of the following sub-derivation:
+
+IF APAR expressao FPAR statement option(stm_else) // lookahead token appears because option(stm_else) can begin with ELSE
+                       stm_if // lookahead token is inherited
+                       IF APAR expressao FPAR statement option(stm_else) // lookahead token is inherited
+                                                        . 
+
+** In state 185, looking ahead at ELSE, shifting is permitted
+** because of the following sub-derivation:
+
+IF APAR expressao FPAR statement option(stm_else) 
+                       stm_if 
+                       IF APAR expressao FPAR statement option(stm_else) 
+                                                        stm_else 
+                                                        . ELSE statement 
+
+** Conflict (shift/reduce) in state 177.
+** Token involved: ELSE
+** This state is reached from prog after reading:
+
+list(funcao) IF APAR expressao FPAR IF APAR expressao FPAR ACHAVE list(statement) FCHAVE 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             statement list(statement) 
+             stm_if 
+             (?)
+
+** In state 177, looking ahead at ELSE, reducing production
+** option(stm_else) -> 
+** is permitted because of the following sub-derivation:
+
+IF APAR expressao FPAR statement option(stm_else) // lookahead token appears because option(stm_else) can begin with ELSE
+                       stm_if // lookahead token is inherited
+                       IF APAR expressao FPAR ACHAVE list(statement) FCHAVE option(stm_else) // lookahead token is inherited
+                                                                            . 
+
+** In state 177, looking ahead at ELSE, shifting is permitted
+** because of the following sub-derivation:
+
+IF APAR expressao FPAR statement option(stm_else) 
+                       stm_if 
+                       IF APAR expressao FPAR ACHAVE list(statement) FCHAVE option(stm_else) 
+                                                                            stm_else 
+                                                                            . ELSE statement 
+
+** Conflict (reduce/reduce) in state 164.
+** Tokens involved: INCR DECR
+** The following explanations concentrate on token INCR.
+** This state is reached from prog after reading:
+
+list(funcao) chamada_funcao 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             (?)
+
+** In state 164, looking ahead at INCR, reducing production
+** statement -> chamada_funcao 
+** is permitted because of the following sub-derivation:
+
+statement list(statement) // lookahead token appears because list(statement) can begin with INCR
+chamada_funcao . 
+
+** In state 164, looking ahead at INCR, reducing production
+** termo -> chamada_funcao 
+** is permitted because of the following sub-derivation:
+
+statement list(statement) 
+stm_incr_decr 
+termo INCR option(stm_ptv) // lookahead token appears
+chamada_funcao . 
+
+** Conflict (reduce/reduce) in state 133.
+** Tokens involved: WHILE VAR SWITCH RETURN LITSTRING LITINT LITFLOAT LITCHAR LITBOOL LET INCR IF ID FUNCTION FOR FCHAVE EOF ELSE DO DECR CONST CONSOLELOG BREAK
+** The following explanations concentrate on token WHILE.
+** This state is reached from prog after reading:
+
+list(funcao) variavel ATRIB ID APAR funcao_args FPAR option(stm_ptv) 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             statement list(statement) // lookahead token appears because list(statement) can begin with WHILE
+             (?)
+
+** In state 133, looking ahead at WHILE, reducing production
+** chamada_funcao -> ID APAR funcao_args FPAR option(stm_ptv) 
+** is permitted because of the following sub-derivation:
+
+stm_attr // lookahead token is inherited
+variavel ATRIB expressao option(stm_ptv) // lookahead token is inherited because option(stm_ptv) can vanish
+               termo // lookahead token is inherited
+               chamada_funcao // lookahead token is inherited
+               ID APAR funcao_args FPAR option(stm_ptv) . 
+
+** In state 133, looking ahead at WHILE, reducing production
+** chamada_funcao -> variavel ATRIB ID APAR funcao_args FPAR option(stm_ptv) 
+** is permitted because of the following sub-derivation:
+
+chamada_funcao // lookahead token is inherited
+variavel ATRIB ID APAR funcao_args FPAR option(stm_ptv) . 
+
+** Conflict (shift/reduce) in state 132.
+** Token involved: PONTOVIRG
+** This state is reached from prog after reading:
+
+list(funcao) variavel ATRIB ID APAR funcao_args FPAR 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             statement list(statement) 
+             (?)
+
+** In state 132, looking ahead at PONTOVIRG, reducing production
+** option(stm_ptv) -> 
+** is permitted because of the following sub-derivation:
+
+stm_attr 
+variavel ATRIB expressao option(stm_ptv) // lookahead token appears because option(stm_ptv) can begin with PONTOVIRG
+               termo // lookahead token is inherited
+               chamada_funcao // lookahead token is inherited
+               ID APAR funcao_args FPAR option(stm_ptv) // lookahead token is inherited
+                                        . 
+
+** In state 132, looking ahead at PONTOVIRG, shifting is permitted
+** because of the following sub-derivation:
+
+chamada_funcao 
+variavel ATRIB ID APAR funcao_args FPAR option(stm_ptv) 
+                                        stm_ptv 
+                                        . PONTOVIRG 
+
+** Conflict (shift/reduce) in state 70.
+** Token involved: PONTOVIRG
+** This state is reached from prog after reading:
+
+list(funcao) RETURN ID APAR funcao_args FPAR 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             statement list(statement) 
+             stm_return 
+             (?)
+
+** In state 70, looking ahead at PONTOVIRG, reducing production
+** option(stm_ptv) -> 
+** is permitted because of the following sub-derivation:
+
+RETURN expressao option(stm_ptv) // lookahead token appears because option(stm_ptv) can begin with PONTOVIRG
+       termo // lookahead token is inherited
+       chamada_funcao // lookahead token is inherited
+       ID APAR funcao_args FPAR option(stm_ptv) // lookahead token is inherited
+                                . 
+
+** In state 70, looking ahead at PONTOVIRG, shifting is permitted
+** because of the following sub-derivation:
+
+RETURN expressao option(stm_ptv) 
+       termo 
+       chamada_funcao 
+       ID APAR funcao_args FPAR option(stm_ptv) 
+                                stm_ptv 
+                                . PONTOVIRG 
+
+** Conflict (shift/reduce) in state 61.
+** Token involved: PONTOVIRG
+** This state is reached from prog after reading:
+
+list(funcao) RETURN variavel ATRIB ID APAR funcao_args FPAR 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             statement list(statement) 
+             stm_return 
+             (?)
+
+** In state 61, looking ahead at PONTOVIRG, reducing production
+** option(stm_ptv) -> 
+** is permitted because of the following sub-derivation:
+
+RETURN expressao option(stm_ptv) // lookahead token appears because option(stm_ptv) can begin with PONTOVIRG
+       termo // lookahead token is inherited
+       chamada_funcao // lookahead token is inherited
+       variavel ATRIB ID APAR funcao_args FPAR option(stm_ptv) // lookahead token is inherited
+                                               . 
+
+** In state 61, looking ahead at PONTOVIRG, shifting is permitted
+** because of the following sub-derivation:
+
+RETURN expressao option(stm_ptv) 
+       termo 
+       chamada_funcao 
+       variavel ATRIB ID APAR funcao_args FPAR option(stm_ptv) 
+                                               stm_ptv 
+                                               . PONTOVIRG 
+
+** Conflict (shift/reduce) in state 57.
+** Tokens involved: POT OR MULTATRIB MULT MOD MENOSATRIB MENOS MENORIGUAL MENOR MAISATRIB MAIS MAIORIGUAL MAIOR IGUAL DIV DIF AND
+** The following explanations concentrate on token POT.
+** This state is reached from prog after reading:
+
+list(funcao) RETURN expressao operador expressao 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             statement list(statement) 
+             stm_return 
+             RETURN expressao option(stm_ptv) 
+                    (?)
+
+** In state 57, looking ahead at POT, reducing production
+** expressao -> expressao operador expressao 
+** is permitted because of the following sub-derivation:
+
+expressao operador expressao // lookahead token appears because operador can begin with POT
+expressao operador expressao . 
+
+** In state 57, looking ahead at POT, shifting is permitted
+** because of the following sub-derivation:
+
+expressao operador expressao 
+                   expressao operador expressao 
+                             . POT 
+
+** Conflict (shift/reduce) in state 34.
+** Tokens involved: INCR DECR
+** The following explanations concentrate on token INCR.
+** This state is reached from prog after reading:
+
+list(funcao) RETURN termo 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+list(funcao) list(statement) list(funcao) EOF 
+             (?)
+
+** In state 34, looking ahead at INCR, reducing production
+** expressao -> termo 
+** is permitted because of the following sub-derivation:
+
+statement list(statement) // lookahead token appears because list(statement) can begin with INCR
+stm_return // lookahead token is inherited
+RETURN expressao option(stm_ptv) // lookahead token is inherited because option(stm_ptv) can vanish
+       termo . 
+
+** In state 34, looking ahead at INCR, shifting is permitted
+** because of the following sub-derivation:
+
+statement list(statement) 
+stm_return 
+RETURN expressao option(stm_ptv) 
+       termo . INCR 
+
+** Conflict (shift/reduce) in state 0.
+** Token involved: FUNCTION
+** This state is reached from prog after reading:
+
+
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+(?)
+
+** In state 0, looking ahead at FUNCTION, shifting is permitted
+** because of the following sub-derivation:
+
+list(funcao) list(statement) list(funcao) EOF 
+funcao list(funcao) 
+. FUNCTION ID APAR parametros FPAR ACHAVE list(statement) FCHAVE 
+
+** In state 0, looking ahead at FUNCTION, reducing production
+** list(funcao) -> 
+** is permitted because of the following sub-derivation:
+
+list(funcao) list(statement) list(funcao) EOF // lookahead token appears because list(statement) can vanish and list(funcao) can begin with FUNCTION
+. 
